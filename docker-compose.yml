@@ -1,0 +1,37 @@
+services:
+
+  app:
+    build: . #image на основе node.js уже есть
+    ports:
+      - '3000:3000'
+    volumes:
+      - app_volume:/home/maryrudneva/project1/repo/todo-list-app/app
+    depends_on:
+      - mysql
+      - nginx
+    extra_hosts:
+    - 'dev.example.com:158.160.163.216'
+
+  mysql:
+    image: mysql:8
+    volumes:
+      - mysql-data:/home/maryrudneva/project1/repo/todo-list-app/mysql
+    environment:
+      - MYSQL_USER:cej.meri
+      - MYSQL_PASSWORD:secret
+
+  nginx:
+    image: nginx:1.25.5  # Use the latest official Nginx image
+    ports:
+      - '80:80'  # Map container port 80 (default HTTP port) to host port 80
+    volumes:
+      - nginx:/home/maryrudneva/project1/repo/todo-list-app/nginx
+
+volumes:
+  app_volume:
+    driver: local
+  mysql-data:
+    driver: local
+  nginx:
+    driver: local
+
