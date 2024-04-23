@@ -1,25 +1,7 @@
 # Getting started
 
-This repository is a simple todo list manager that runs on Node.js
+Подробное описание процесса решения можно найти в wiki это репозитория.
+
+Приложение представляет собой простой список задач на Node.js, нужно было его развернуть на 2 хостах dev01 и prod01, найти команду для запуска приложения, зависимости + установить их. На первом хосте нужно было использовать docker compose и сделать доступным по домену dev.example.com, а на втором нужно было развернуть без использования докер, тут домен в условии example.com
   
-# Envs:
-```
-MYSQL_HOST: HOST
-MYSQL_HOST_FILE: HOST_FILE
-MYSQL_USER: USER
-MYSQL_USER_FILE: USER_FILE
-MYSQL_PASSWORD: PASSWORD
-MYSQL_PASSWORD_FILE: PASSWORD_FILE
-MYSQL_DB: DB
-MYSQL_DB_FILE: DB_FILE
-```
 
-# Example envs:
-```
-MYSQL_HOST: mysql
-MYSQL_USER: root
-MYSQL_PASSWORD: secret
-MYSQL_DB: todos
-```
-
-If «MYSQL_HOST» is unset, application will use sqlite database
