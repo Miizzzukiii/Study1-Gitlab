@@ -9,6 +9,7 @@ COPY ./package.json ./yarn.lock .
 
 # устанавливаем зависимости
 RUN npm install
+RUN yarn install
 
 # копируем остальное 
 COPY . .
