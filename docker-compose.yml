@@ -9,7 +9,7 @@ services:
     depends_on:
       - mysql
     extra_hosts:
-    - 'dev.example.com:158.160.143.234'
+    - 'dev.example.com:<my_IP>'
 
   mysql:
     image: mysql:8
