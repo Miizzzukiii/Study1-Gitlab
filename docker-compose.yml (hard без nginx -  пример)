@@ -1,0 +1,44 @@
+
+services:
+  my-app-dev:
+    build: .
+    image: ${imageTag}
+    ports:
+      - '3000:3000'
+    env_file: 
+      - .env
+    cpus: '0.5'
+    mem_limit: 1g
+    volumes:
+      - app_volume:/home/maryrudneva/project1/repo/todo-list-app/Study1/app
+    container_name: ${my_app}
+    depends_on:
+      - mysql
+    environment:
+      - VIRTUAL_HOST=dev.domain.com
+      - imageTag=${imageTag}
+    networks:
+      - network
+
+  mysql:
+    image: mysql:8
+    volumes:
+      - mysql-data:/home/maryrudneva/project1/repo/todo-list-app/Study1/mysql
+    container_name: my-sql-my-app-dev
+    environment:
+      - MYSQL_ROOT_PASSWORD="my-secret-password"
+      - MYSQL_USER="cej.meri"
+      - MYSQL_PASSWORD="secret"
+    networks:
+      - network
+
+
+volumes:
+  app_volume:
+    driver: local
+  mysql-data:
+    driver: local
+
+networks:
+  network:
+    driver: bridge
