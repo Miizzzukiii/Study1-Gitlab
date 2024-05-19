@@ -5,7 +5,7 @@ FROM node:18.16.0-alpine
 WORKDIR ./todo-list-app
 
 # тек дир- repo/todo-list-app копирую зависимости  в контейнер
-COPY ./package.json ./yarn.lock .
+COPY ./package.json ./yarn.lock ./
 
 # устанавливаем зависимости
 RUN npm install
