@@ -1,0 +1,42 @@
+upstream my-app-feature {
+    server my-app-feature:3002;
+}
+
+upstream my-app-dev {
+    server my-app-dev:3000;
+}
+
+upstream my-app-release {
+    server my-app-release:3001;
+}
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name ~^([a-z0-9]{4})\.dev\.domain\.com$ dev.domain.com ~^([a-z0-9]{4})\.release\.domain\.com$;
+
+    location / {
+        if ($host ~ "^([a-z0-9]{4})\.dev\.domain\.com$") {
+            set $upstream_server my-app-feature;
+        }
+
+        if ($host ~ "^([a-z0-9]{4})\.dev\.domain\.com$") {
+            set $upstream_server my-app-release;
+        }
+
+        if ($host = "dev.domain.com") {
+            proxy_pass http://my-app-dev;
+        }
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        add_header X-My-Env-Variable "$MY_ENV_VARIABLE";
+    }
+
+    error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+        root /usr/share/nginx/html;
+    }
+}
